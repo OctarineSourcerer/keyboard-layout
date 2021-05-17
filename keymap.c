@@ -16,7 +16,7 @@ extern uint8_t is_master;
 #define _QWERTY 0
 #define _LOWER 1
 #define _RAISE 2
-#define _ADJUST 3
+#define _ADJUST 3 
 
 enum custom_keycodes {
   QWERTY = SAFE_RANGE,
@@ -39,7 +39,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
   LSFT_T(KC_ESC), KC_A,    KC_S,    KC_D,    KC_F,    KC_G,                         KC_H,    KC_J,    KC_K,    KC_L, KC_SCLN, KC_QUOT,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
- LCTL_T(KC_CAPS), KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, RSFT_T(KC_PSCR),\
+ LCTL_T(KC_TAB), KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,                         KC_N,    KC_M, KC_COMM,  KC_DOT, KC_SLSH, RSFT_T(KC_CAPS),\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                         LGUI_T(KC_PSCR),LT(_LOWER, KC_DEL),  KC_SPC,    KC_ENT,  RAISE,  RALT_T(KC_DEL) \
                                       //`--------------------------'  `--------------------------'
@@ -62,9 +62,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //,-----------------------------------------------------.                    ,-----------------------------------------------------.
        KC_ESC, UK_EXLM,  UK_DQUO, UK_PND,  UK_DLR, UK_PERC,                      UK_CIRC, UK_AMPR, UK_ASTR, UK_LPRN, UK_RPRN,  KC_DEL,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_MINS,  KC_UNDS, UK_PIPE, KC_LCBR, KC_RCBR,  KC_GRV,\
+      KC_LSFT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_MINS, KC_PLUS, UK_PIPE, KC_LCBR, KC_RCBR,  KC_GRV,\
   //|--------+--------+--------+--------+--------+--------|                    |--------+--------+--------+--------+--------+--------|
-      KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_PLUS,  KC_EQL,  UK_BSLS, KC_LBRC, KC_RBRC, UK_TILD,\
+      KC_LCTL, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                      KC_UNDS,  KC_EQL,  UK_BSLS, KC_LBRC, KC_RBRC, UK_TILD,\
   //|--------+--------+--------+--------+--------+--------+--------|  |--------+--------+--------+--------+--------+--------+--------|
                                           KC_LGUI,   LOWER,  KC_SPC,     KC_ENT,   RAISE, KC_RALT \
                                       //`--------------------------'  `--------------------------'
@@ -116,8 +116,8 @@ void matrix_init_user(void) {
 const char *read_layer_state(void);
 const char *read_logo(void);
 void set_keylog(uint16_t keycode, keyrecord_t *record);
-const char *read_keylog(void);
-const char *read_keylogs(void);
+// const char *read_keylog(void);
+// const char *read_keylogs(void);
 
 // const char *read_mode_icon(bool swap);
 // const char *read_host_led_state(void);
@@ -132,9 +132,9 @@ void matrix_render_user(struct CharacterMatrix *matrix) {
   if (is_master) {
     // If you want to change the display of OLED, you need to change here
     matrix_write_ln(matrix, read_layer_state());
-    matrix_write_ln(matrix, read_keylog());
+    // matrix_write_ln(matrix, read_keylog());
     //matrix_write_ln(matrix, read_keylogs());
-    //matrix_write_ln(matrix, read_mode_icon(keymap_config.swap_lalt_lgui));
+    // matrix_write_ln(matrix, read_mode_icon(keymap_config.swap_lalt_lgui));
     //matrix_write_ln(matrix, read_host_led_state());
     //matrix_write_ln(matrix, read_timelog());
   } else {
@@ -160,7 +160,7 @@ void iota_gfx_task_user(void) {
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
   if (record->event.pressed) {
 #ifdef SSD1306OLED
-    set_keylog(keycode, record);
+    // set_keylog(keycode, record);
 #endif
     // set_timelog();
   }
